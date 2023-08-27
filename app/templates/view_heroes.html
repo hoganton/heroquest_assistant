@@ -8,10 +8,13 @@
 {% block content %}
 <div class="container">
     <h2>Your Heroes</h2>
-    {% for hero in heroes %}
-    <li>
-        <a href="{{ url_for('hero_details', hero_id=hero.id) }}">{{ hero.name }}</a>
-    </li>
-    {% endfor %}
+    <a href="{{ url_for('create_hero') }}" class="btn btn-primary">Create New Hero</a>
+    <ul>
+        {% for hero in heroes %}
+        <li>
+            <a href="{{ url_for('hero_details', hero_id=hero.id) }}">{{ hero.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}
