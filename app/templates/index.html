@@ -1,8 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ current_user.username }}!</h1>
-    {% for post in posts %}
-    <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
-    {% endfor %}
+<h1>Welcome to the HeroQuest Assistant, {{ current_user.username }}!</h1>
+<div>
+    <p>This is an assistant for the Tabletop Game HeroQuest. You can create your Heroes and enter the data for your
+        Heroes in here. So that you don't need to save the piece of paper between gaming sessions.
+    </p>
+</div>
+<div>
+    <a href="{{ url_for('view_heroes') }}">I want to see my Heroes</a>
+</div>
+<div>
+    <a href="{{ url_for('create_hero') }}">I want to create a new Hero</a>
+</div>
+<h2>What is HeroQuest?</h2>
+<div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Cx8sl2uC46A" frameborder="0"
+        allowfullscreen></iframe>
+</div>
 {% endblock %}
