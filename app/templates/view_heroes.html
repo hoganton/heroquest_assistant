@@ -1,14 +1,9 @@
 {% extends "base.html" %}
 
-{% block head %}
-<title>Your Heroes - HeroQuest Assistant</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-{% endblock %}
-
 {% block content %}
-<div class="container">
+<div>
     <h2>Your Heroes</h2>
-    <a href="{{ url_for('create_hero') }}" class="btn btn-primary">Create New Hero</a>
+    <a href="{{ url_for('create_hero') }}">Create New Hero</a>
     <ul>
         {% for hero in heroes %}
         <li>
