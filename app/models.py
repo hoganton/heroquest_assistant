@@ -42,5 +42,12 @@ class Hero(db.Model):
     items = db.Column(db.String(560))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'character': self.character
+        }
+
     def __repr__(self):
         return '<Hero {}>'.format(self.body)
