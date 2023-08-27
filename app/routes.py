@@ -129,3 +129,17 @@ def create_hero():
 def view_heroes():
     user_heroes = Hero.query.filter_by(user_id=current_user.id).all()
     return render_template('view_heroes.html', heroes=user_heroes)
+
+@app.route('/hero_details/<int:hero_id>')
+@login_required
+def hero_details(hero_id):
+    hero = Hero.query.get_or_404(hero_id)
+    return render_template('hero_details.html', hero=hero)
+
+@app.route('/delete_hero/<int:hero_id>', methods=['POST'])
+def delete_hero(hero_id):
+    hero = Hero.query.get_or_404(hero_id)
+    db.session.delete(hero)
+    db.session.commit()
+    flash('Hero deleted successfully.', 'success')
+    return redirect(url_for('view_heroes'))

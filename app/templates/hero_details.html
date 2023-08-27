@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Hero Details</h2>
+    <p><strong>Name:</strong> {{ hero.name }}</p>
+    <p><strong>Character:</strong> {{ hero.character }}</p>
+    <p><strong>Name:</strong> {{ hero.name }}<br></p>
+    <p><strong>Character:</strong> {{ hero.character }}<br></p>
+    <p><strong>Attack Dice:</strong> {{ hero.attack_dice }}<br></p>
+    <p><strong>Defend Dice:</strong> {{ hero.defend_dice }}<br></p>
+    <p><strong>Starting Body Points:</strong> {{ hero.starting_body_points }}<br></p>
+    <p><strong>Starting Mind Points:</strong> {{ hero.starting_mind_points }}<br></p>
+    <p><strong>Weapons:</strong> {{ hero.weapons }}<br></p>
+    <p><strong>Armor:</strong> {{ hero.armor }}<br></p>
+    <p><strong>Body Points:</strong> {{ hero.body_points }}<br></p>
+    <p><strong>Quests:</strong> {{ hero.quests }}<br></p>
+    <p><strong>Gold Coins:</strong> {{ hero.gold_coins }}<br></p>
+    <p><strong>Items:</strong> {{ hero.items }}<br></p>
+    <a href="{{ url_for('view_heroes') }}" class="btn btn-secondary">Back to Heroes</a>
+    <form method="POST" action="{{ url_for('delete_hero', hero_id=hero.id) }}"
+        onsubmit="return confirm('Are you sure you want to delete this hero?');">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="btn btn-danger">Delete Hero</button>
+    </form>
+</div>
+{% endblock %}

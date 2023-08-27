@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 
+{% block head %}
+<title>Your Heroes - HeroQuest Assistant</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <h2>Your Heroes</h2>
-    <ul>
-        {% for hero in heroes %}
-        <li>{{ hero.name }} - {{ hero.character }}</li>
-        {% endfor %}
-    </ul>
+    {% for hero in heroes %}
+    <li>
+        <a href="{{ url_for('hero_details', hero_id=hero.id) }}">{{ hero.name }}</a>
+    </li>
+    {% endfor %}
 </div>
 {% endblock %}
