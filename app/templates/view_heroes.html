@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Your Heroes</h2>
+    <ul>
+        {% for hero in heroes %}
+        <li>{{ hero.name }} - {{ hero.character }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

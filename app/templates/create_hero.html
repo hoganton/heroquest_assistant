@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Create a New Hero</h2>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend>Hero Details</legend>
+            <div class="form-group">
+                {{ form.name.label(class="form-control-label") }}
+                {{ form.name(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.character.label(class="form-control-label") }}
+                {{ form.character(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.attack_dice.label(class="form-control-label") }}
+                {{ form.attack_dice(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.defend_dice.label(class="form-control-label") }}
+                {{ form.defend_dice(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.starting_body_points.label(class="form-control-label") }}
+                {{ form.starting_body_points(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.starting_mind_points.label(class="form-control-label") }}
+                {{ form.starting_mind_points(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.weapons.label(class="form-control-label") }}
+                {{ form.weapons(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.armor.label(class="form-control-label") }}
+                {{ form.armor(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.body_points.label(class="form-control-label") }}
+                {{ form.body_points(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.quests.label(class="form-control-label") }}
+                {{ form.quests(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.gold_coins.label(class="form-control-label") }}
+                {{ form.gold_coins(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.items.label(class="form-control-label") }}
+                {{ form.items(class="form-control form-control-lg") }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
