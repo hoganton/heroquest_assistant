@@ -10,9 +10,9 @@ RUN python -m venv venv
 RUN venv/bin/pip install -r requirements.txt
 RUN venv/bin/pip install gunicorn pymysql cryptography
 
-COPY app app
+RUN mkdir app
 COPY migrations migrations
-COPY heroquest.py boot.sh ./
+COPY heroquest.py config.py boot.sh ./
 COPY wsgi.py wsgi.py
 RUN chmod a+x boot.sh
 
