@@ -1,25 +1,7 @@
-FROM python:latest
+FROM python:slim
 
-RUN useradd heroquest
-
-WORKDIR /home/heroquest
-
-COPY requirements.txt requirements.txt
-RUN pip install --upgrade pip
-RUN python -m venv venv
-RUN venv/bin/pip install -r requirements.txt
-RUN venv/bin/pip install gunicorn pymysql cryptography
-
-RUN mkdir app
-COPY migrations migrations
-COPY heroquest.py config.py boot.sh ./
-COPY wsgi.py wsgi.py
-RUN chmod a+x boot.sh
-
-ENV FLASK_APP heroquest.py
-
-RUN chown -R heroquest:heroquest ./
-USER heroquest
-
+WORKDIR /flaskapp
+COPY ./flask_app/ .
+RUN pip install -r requirements.txt && chmod a+x boot.sh
 EXPOSE 5000
 ENTRYPOINT ["./boot.sh"]
