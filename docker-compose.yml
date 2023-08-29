@@ -24,8 +24,6 @@ services:
     build: .
     container_name: flask
     restart: always
-    # environment:
-    #   - DATABASE_URL=mysql+pymysql://admin:password@dbserver/heroquest
     volumes:
       - ./flask_app/app:/home/heroquest/app:ro
     depends_on:
