@@ -1,5 +1,5 @@
 services:
-  mysql:
+  mariadb:
     image: mariadb
     container_name: mysql
     restart: always
@@ -18,17 +18,17 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./flask_app/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
 
   flask:
     build: .
     container_name: flask
     restart: always
-    environment:
-      - DATABASE_URL=mysql+pymysql://admin:password@dbserver/heroquest
+    # environment:
+    #   - DATABASE_URL=mysql+pymysql://admin:password@dbserver/heroquest
     volumes:
-      - ./app:/home/heroquest/app:ro
+      - ./flask_app/app:/home/heroquest/app:ro
     depends_on:
-      - mysql
+      - mariadb
     links:
-      - mysql:dbserver
+      - mariadb:dbserver
