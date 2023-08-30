@@ -23,8 +23,8 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "::set-env name=IMAGE_NAME::${{ github.repository }}"
-          echo "::set-env name=IMAGE_TAG::${{ github.event.release.tag_name }}"
+          echo "IMAGE_NAME=${{ github.repository }}" >> $GITHUB_ENV
+          echo "IMAGE_TAG=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
 
       - name: Tag Docker image with release/tag and latest
         run: |
