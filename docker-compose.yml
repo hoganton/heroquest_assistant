@@ -21,7 +21,7 @@ services:
       - ./flask_app/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
 
   flask:
-    build: .
+    image: hoganton/heroquest_assistant:latest
     container_name: flask
     restart: always
     volumes:
