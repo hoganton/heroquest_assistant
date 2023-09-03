@@ -44,17 +44,14 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      - name: Set up SSH agent and add private key
+      - name: Set up SSH
         run: |
-          eval $(ssh-agent -s)
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          cat ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan ${{ secrets.AZURE_SERVER_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Create the SSH directory and give it the right permissions
-        run: mkdir -p ~/.ssh && chmod 700 ~/.ssh
-
-      - name: Add the Azure SSH host key
-        run: ssh-keyscan $AZURE_SERVER_HOST >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
-
-      - name: Run Docker Compose pull
+      - name: Connect to Remote Server and Run Command
         run: |
-          ssh $USERNAME_AZURE@$AZURE_SERVER_HOST "docker-compose -f /home/vega/project/heroquest_assistant/docker-compose.yml pull"
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.AZURE_USERNAME }}@${{ secrets.AZURE_SERVER_HOST }} "docker compose -f /home/vega/project/heroquest_assistant/docker-compose.yml pull"
