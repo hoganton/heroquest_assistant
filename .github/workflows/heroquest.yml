@@ -55,3 +55,4 @@ jobs:
       - name: Connect to Remote Server and Run Command
         run: |
           ssh -i ~/.ssh/id_ed25519 ${{ secrets.AZURE_USERNAME }}@${{ secrets.AZURE_SERVER_HOST }} "docker compose -f /home/vega/project/heroquest_assistant/docker-compose.yml pull"
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.AZURE_USERNAME }}@${{ secrets.AZURE_SERVER_HOST }} "docker compose -f /home/vega/project/heroquest_assistant/docker-compose.yml up -d"
