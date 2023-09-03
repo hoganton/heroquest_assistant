@@ -7,7 +7,7 @@ from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
 app.config.from_object(Config)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://admin:password@dbserver/heroquest'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:password@dbserver/heroquest'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
