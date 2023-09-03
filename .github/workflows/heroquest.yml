@@ -37,26 +37,22 @@ jobs:
           docker push $IMAGE_NAME:latest
 
   deploy_on_azure:
-    name: Run Ansible
+    name: Deploy new Image
     runs-on: ubuntu-latest
     needs: push_to_registry
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      - name: Install ssh-agent if not already installed
-        run: command -v ssh-agent >/dev/null || ( apt update -y && apt install openssh-client -y )
-
-      - name: Set Private Key
-        run: echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+      - name: Set up SSH agent and add private key
+        run: |
+          eval $(ssh-agent -s)
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
 
       - name: Create the SSH directory and give it the right permissions
         run: mkdir -p ~/.ssh && chmod 700 ~/.ssh
 
-      - name: Add the gitlab ssh-host-key
-        run: ssh-keyscan $AZURE_SERVER_HOST >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
-
-      - name: Add the gitlab ssh-host-key
+      - name: Add the Azure SSH host key
         run: ssh-keyscan $AZURE_SERVER_HOST >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
 
       - name: Run Docker Compose pull
