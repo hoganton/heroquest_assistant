@@ -45,7 +45,7 @@ To Run the Flask Application without Docker and Docker Compose you have to have 
 1. Change into the flask_app directory
 
 ```bash
-cd flas_app
+cd flask_app
 ```
 
 2. Install the Python/pip requirements
