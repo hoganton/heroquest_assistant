@@ -28,8 +28,6 @@ services:
     image: hoganton/heroquest_assistant:latest
     container_name: flask
     restart: always
-    volumes:
-      - ./flask_app/app:/home/heroquest/app:ro
     depends_on:
       - mariadb
     environment:
