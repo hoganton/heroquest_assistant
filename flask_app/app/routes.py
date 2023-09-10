@@ -109,4 +109,63 @@ def delete_hero(hero_id):
 @app.route('/api/heroes', methods=['GET'])
 def get_heroes():
     heroes = Hero.query.all()
-    return jsonify([hero.serialize() for hero in heroes]), 200
+
+    simplified_heroes = []
+    for hero in heroes:
+        creator = User.query.get(hero.user_id)
+        hero_info = {
+            'creator_name': creator.username,
+            'hero_name': hero.name,
+            'character': hero.character
+        }
+
+        simplified_heroes.append(hero_info)
+
+    return jsonify(simplified_heroes), 200
+
+@app.route('/api/heroes/<string:hero_name>', methods=['GET'])
+def get_hero(hero_name):
+    hero = Hero.query.filter_by(name=hero_name).first()
+
+    if hero is None:
+        return jsonify({'error': 'Hero not found'}), 404
+
+    creator = User.query.get(hero.user_id)
+
+    hero_info = {
+        'name': hero.name,
+        'character': hero.character,
+        'attack_dice': hero.attack_dice,
+        'defend_dice': hero.defend_dice,
+        'starting_body_points': hero.starting_body_points,
+        'starting_mind_points': hero.starting_mind_points,
+        'weapons': hero.weapons,
+        'armor': hero.armor,
+        'body_points': hero.body_points,
+        'quests': hero.quests,
+        'gold_coins': hero.gold_coins,
+        'items': hero.items,
+        'creator_username': creator.username
+    }
+
+    return jsonify(hero_info), 200
+
+@app.route('/api/<string:username>', methods=['GET'])
+def get_user_heroes(username):
+    user = User.query.filter_by(username=username).first()
+
+    if user is None:
+        return jsonify({'error': 'User not found'}), 404
+
+    user_heroes = Hero.query.filter_by(user_id=user.id).all()
+
+    serialized_user_heroes = []
+
+    for hero in user_heroes:
+        hero_info = {
+            'name': hero.name,
+            'character': hero.character
+        }
+        serialized_user_heroes.append(hero_info)
+
+    return jsonify(serialized_user_heroes), 200
